@@ -1,22 +1,18 @@
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 type Props = {
-  location: any;   // tighten later
-  forecast: any;   // tighten later
+  location: any; // tighten later
+  forecast: any; // tighten later
 };
 
-export default function CurrentWeather({location, forecast}: Props) {
+export default function CurrentWeather({ location, forecast }: Props) {
   if (!forecast) {
-  return <p>Loading weather...</p>;
-}
-if (!forecast.current) {
-  return <p>Weather data missing.</p>;
-}
+    return <p>Loading weather...</p>;
+  }
+  if (!forecast.current) {
+    return <p>Weather data missing.</p>;
+  }
   return (
     <div>
       <Card className="min-w-122.5">
@@ -39,7 +35,9 @@ if (!forecast.current) {
                 height={92}
                 alt="day_clear"
               />
-              <p className="text-3xl font-semibold pt-2">{forecast.current.temperature_2m}°F</p>
+              <p className="text-3xl font-semibold pt-2">
+                {forecast.current.temperature_2m}°F
+              </p>
             </div>
             {/*Bottom-right: Current weather status/feeling*/}
             <div className="col-start-3 row-start-3 justify-self-end self-end -mt-3">

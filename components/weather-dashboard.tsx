@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CurrentWeather from "./widgets/current-weather";
 import LocationSearch from "./widgets/location-search";
+import UvIndex from "./widgets/uv-index";
 
 type Location = {
   id?: number;
@@ -100,8 +101,9 @@ export default function WeatherDashboard() {
       <div className="m-4 flex justify-center">
         <LocationSearch onSearch={handleLocationSubmit} />
       </div>
-      <div className="flex ">
-      <CurrentWeather location={selectedLocation} forecast={forecast} />
+      <div className="flex  flex-col">
+        <CurrentWeather location={selectedLocation} forecast={forecast} />
+        <UvIndex/>
       </div>
     </div>
   );
