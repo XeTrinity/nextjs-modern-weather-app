@@ -1,11 +1,38 @@
-export default function UvIndex() {
-  return (
-    <div>
-      <div className="relative h-5 rounded-full overflow-hidden mt-20 mx-10">
-        <div className="absolute inset-0 rounded-full bg-linear-to-r from-lime-500 via-yellow-500 via-orange-500 via-red-500 to-purple-500" />
-        <div className="absolute inset-0 rounded-full [border-image:linear-gradient(to_right,#83C59B,#FCF09A,red,purple,#71CAEE)_1]"/>
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
-      </div>
+type Props = {
+  dailyWeather: any; // tighten later
+};
+
+export default function UvIndex({dailyWeather}: Props) {
+    if (!dailyWeather) {
+    return <p>Loading weather...</p>;
+  }
+  if (!dailyWeather.dailyWeather) {
+    return <p>Weather data missing.</p>;
+  }
+  return (
+    <div >
+      <Card className="w-60">
+        <CardHeader>
+          <CardTitle>UV Index</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <Progress value={dailyWeather.daily.uv_index_max} variant="uv" indicatorVariant="circle" />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -20,6 +20,7 @@ export default function WeatherDashboard() {
     null
   );
   const [forecast, setForecast] = useState<any | null>(null);
+  const [dailyWeather, setdailyWeather] = useState<any | null>(null);
   const [error, setError] = useState("");
 
   async function handleLocationSubmit(query: string) {
@@ -63,6 +64,7 @@ export default function WeatherDashboard() {
       };
       setSelectedLocation(selectedLocationResult);
       await fetchForecast(selectedLocationResult);
+      await fetchDailyWeather(selectedLocationResult);
     } catch (err) {
       console.log(err);
     }
@@ -96,14 +98,35 @@ export default function WeatherDashboard() {
       );
     }
   }
+  async function fetchDailyWeather(location: Location) {
+  try {
+    const dailyWeatherParams = new URLSearchParams({
+      latitude: location.latitude.toString(),
+      longitude: location.longitude.toString(),
+      daily: "uv_index_max",
+      timezone: "auto",
+    });
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?${dailyWeatherParams.toString()}`
+    );
+    if (!res.ok) throw new Error("Daily Weather failed");
+    const data = await res.json();
+    setdailyWeather(data);
+  } catch (err) {
+    console.error("Weather fetch error:", err);
+    setError(
+      err instanceof Error ? err.message : "Failed to fetch weather data"
+    );
+  }
+}
   return (
     <div>
       <div className="m-4 flex justify-center">
         <LocationSearch onSearch={handleLocationSubmit} />
       </div>
-      <div className="flex  flex-col">
+      <div className="flex flex-col">
         <CurrentWeather location={selectedLocation} forecast={forecast} />
-        <UvIndex/>
+        <UvIndex dailyWeather={dailyWeather} />
       </div>
     </div>
   );

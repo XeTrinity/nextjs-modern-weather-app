@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Props = {
   location: any; // tighten later
@@ -15,10 +15,10 @@ export default function CurrentWeather({ location, forecast }: Props) {
   }
   return (
     <div>
-      <Card className="min-w-122.5">
+      <Card className="w-122.5">
         <CardContent>
           <CardHeader>
-            <h1 className="text-lg font-bold">City Location</h1>
+            <CardTitle className="text-lg font-bold">City Location</CardTitle>
           </CardHeader>
           {/* Main Grid */}
           <div className="grid grid-cols-3 grid-rows-[auto_1fr_auto]">
