@@ -6,7 +6,7 @@ type Props = {
   forecast: any; // tighten later
 };
 
-export default function CurrentWeather({ location, forecast }: Props) {
+export default function CurrentWeather({forecast }: Props) {
   if (!forecast) {
     return <p>Loading weather...</p>;
   }

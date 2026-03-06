@@ -103,7 +103,7 @@ export default function WeatherDashboard() {
     const dailyWeatherParams = new URLSearchParams({
       latitude: location.latitude.toString(),
       longitude: location.longitude.toString(),
-      daily: "uv_index_max",
+      daily: "uv_index_max,temperature_2m_max,temperature_2m_min",
       timezone: "auto",
     });
     const res = await fetch(
@@ -112,6 +112,8 @@ export default function WeatherDashboard() {
     if (!res.ok) throw new Error("Daily Weather failed");
     const data = await res.json();
     setdailyWeather(data);
+    console.log(dailyWeather.daily.temperature_2m_max)
+    console.log(dailyWeather.daily.temperature_2m_max[0])
   } catch (err) {
     console.error("Weather fetch error:", err);
     setError(
@@ -126,7 +128,7 @@ export default function WeatherDashboard() {
       </div>
       <div className="flex flex-col">
         <CurrentWeather location={selectedLocation} forecast={forecast} />
-        <UvIndex dailyWeather={dailyWeather} />
+        <UvIndex location={selectedLocation} dailyWeather={dailyWeather} />
       </div>
     </div>
   );
